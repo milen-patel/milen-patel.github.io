@@ -5,7 +5,7 @@ subtitle: Why am I doing this...
 cover-img: /assets/img/path.jpg
 thumbnail-img: /assets/img/thumb.png
 share-img: /assets/img/path.jpg
-tags: [books, test]
+tags: [reading]
 ---
 Sometime around my senior year of high school, I had a realization that I hadn’t read a book for leisure in nearly ten years. As embarrassing as it is to admit in hindsight, at the time I couldn’t have cared any less; I thought the one book I half-read for my English class each semester was enough. But even when I was reading ten years prior, it was infrequent and I missed out on many of the ‘classic’ series (no, I still have never read Harry Potter). My will to read was nonexistent, yet I remember one day during a US History class, my teacher mentioned a book called Killers of the Flower Moon – a real story documenting how a Native American tribe became the richest per capita group in the world after oil was discovered on their reservation. Unrightfully, they were murdered and plundered of their money in many incomprehensible ways. The injustices against the Osage Nation are what led to the creation of the FBI (which ironically enough fed into the corruption for the initial years after its conception). For some reason I will never know, when my teacher briefly mentioned that book during class, I opened a sticky note on my computer and wrote it down. 
 

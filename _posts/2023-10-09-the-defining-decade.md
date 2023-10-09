@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The Defining Decaade
+title: The Defining Decade
 subtitle: My thoughts on Meg Jay's The Defining Decade
 tags: [reading]
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: Understanding how C's malloc() and free() work
 subtitle: A deeper dive into the design behind memory allocators
-tags: [reading]
+tags: [C, malloc, hoard, stdlib]
 comments: true
 ---
 

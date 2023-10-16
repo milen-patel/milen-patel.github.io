@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: NONE
 title: MongoDB Associate Developer Certification Study Guid
 tags: [mongodb, python]
 comments: true
@@ -13,7 +13,9 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 # Unit 4: MongoDB Data Modeling Intro [TODO]
 # Unit 5: Connecting to a MongoDB Database [TODO]
 # Unit 6: Connecting to MongoDB in Python [TODO]
+
 # Unit 7: MongoDB CRUD Opeartions: Insert and Find Documents
+
 * Use `db.collection.insertOne({..document data..})` to insert a single document into a collection
 * Use `db.collection.insertMany([{A},{B},..])` to insert multiple documents at once
 * Use `db.collection.find(query, projection, options)` to get a cursor to the documents matching the query criteria
@@ -46,6 +48,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
         ]
       })
       ```
+
 # Unit 8: MongoDB CRUD Operations: Replace and Delete Documents
 * `database.collection.replaceOne(filter, replacement, options)` lets you replace a document in MongoDB
   * *Filter*: A query that matches the document to replace
@@ -72,6 +75,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 * `database.collection.updateMany(filter, update, objects)` used to update multiple documents
 * `database.collection.deleteOne(filter, options)` and `database.collection.deleteMany(filter, options)` can be used to delete documents
   * Both of these return a document that contains properties `acknowledged` (i.e. was it successful) and `deletedCount` (how many documents were removed)
+
 # Unit 9: MongoDB CRUD Operations: Modifying Query Results
 * `cursor.sort()`/`db.collection.find(<query>).sort(<sort>)`lets you return query results in a specific order
   * The parameter is an object specifying the fields to sort and the order (1 is ascending, -1 is descending)
@@ -84,11 +88,17 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * By default, the `_id` field is included, but it can be supressed in any projection by settings its value to 0 (can't mix 1's and 0's in any other way)
 * `database.collection.countDocuments(<query>, <options>)` to count the number of documents matching the query
   * An empty object parameter will get you the number of documents in the collection
+
 # Unit 10: MongoDB CRUD Operations in Python [TODO]
+
 # Unit 11: MongoDB Aggregation [TODO]
+
 # Unit 12: MongoDB Aggregation in Python [TODO]
+
 # Unit 13: MongoDB Indexes [TODO]
+
 # Unit 15: MongoDB Transactions
+
 * Issue: Two friends are at dinner and decide to split the bill. One person picks up the tab and the other pays them back on a payment app. For the second step, we withdraw money from one account and add money to the other. But we need both of these to happen.
 * Any time DB operations transfer value from one record to another, we need these operations to complete fully
 * **ACID Transactions**: Group of database operations that must happen together or not at all, ensuring database consistency
@@ -121,6 +131,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
     session.abortTransaction()
     ```
     * startTransaction() and abortTransaction() are silent, commitTransaction() will message upon success
+
 # Unit 16: MongoDB Compass
 * Compass is the official GUI for MongoDB
 * Can import JSON into a collection

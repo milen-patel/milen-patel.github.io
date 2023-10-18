@@ -12,7 +12,20 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 # Unit 3: MongoDB and the Document Model [TODO]
 # Unit 4: MongoDB Data Modeling Intro [TODO]
 # Unit 5: Connecting to a MongoDB Database [TODO]
-# Unit 6: Connecting to MongoDB in Python [TODO]
+# Unit 6: Connecting to MongoDB in Python
+* Drivers are responsible for establishing secure connections to Mongo clusters and for running database operations on behalf of client applications
+* An application should use a single MongoClient instance for all database requests
+* Atlas can generate a connection string but you must replace the username and password
+* ```
+  from pymongo import MongoClient
+  MONGODB_URI = "...from Atlas..."
+  client = MongoClient(MONGODB_URI)
+  for db_name in client.list_database_names():
+    print(db_name)
+  ```
+* Connection string takes the format `mongodb+srv://[username:password@]host[:port]`
+* Must whitelist your IP address or you'll get a `ServerSelectionTimeoutError`
+* Incorrect credential will yield a `OperationFailure: Authentication Failed`
 
 # Unit 7: MongoDB CRUD Opeartions: Insert and Find Documents
 
@@ -89,9 +102,127 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 * `database.collection.countDocuments(<query>, <options>)` to count the number of documents matching the query
   * An empty object parameter will get you the number of documents in the collection
 
-# Unit 10: MongoDB CRUD Operations in Python [TODO]
+# Unit 10: MongoDB CRUD Operations in Python 
+* PyMongo lets you represent BSON documents as Python dictionaries
+* You can work with native python types and it will handle the conversion
+* Every document requires an `_id` field, if we don't include it, it will automatically be added, this is stored as an instance of the ObjectId class
+  * Must import the BSON library to work with this 
+  * Must also use BSON for some other types including Int64, Decimal128, RegEx, ObjectId
+  * We have to use methods for these types, but the majority work fine with native python types (strings, floats, lists, dictionaries)
+* In general, once you have a `client` instance, you can access a collection with `client.<database name>.<collection name>`
+  * Remember to call `client.close()` at the end of your file
+* Create
+  * `collection.insert_one(<document>)` to add one item to the collection
+    *  You can store this return in a variable and access the objects ID with `result.inserted_id`
+  * `collection.insert_many([<d1>,<d2>,...])`
+    * You cans ave the return and access the list of inserted IDs with `result.inserted_ids`
+* Read
+  * `collection.find_one(<query>)` returns the first document that matches the query, or returns None if there are no matches
+    * Example: `accounts.find({"_id": ObjectId("w3f32f2f")})`
+  * `collection.find(<query>)` returns a Cursor instane that lets you iterate over all matching doucments
+    * Can iterate over cursor with a for loop: `for document in cursor`
+* Update
+  * `collection.update_one(<filter>, <update>)`
+    * Can capture the result and see if a change was made with `result.modified_count`
+  * `collection.update_many(<filter>, <update>)`
+    * Can capture result and access `result.matched_count`, `result.modified_count`
+* Delete
+  * `collection.delete_one(<filter>)`
+    * If called with an empty document, deletes the first document in the collection
+    * Can access result like `result.deleted_count`
+  * `collection.delete_many(<filter>)` deletes all documents matching a query
+    * If called with an empty filter, all documents in the collection get deleted
+    * `result.deleted_count` to see how many documents were removed
+* Transactions
+  1. Define a callback that specifies the operations to perform as part of the transaction
+      * `session` is a required parameters, you can add optional ones too
+      * In the callback, get references to the collections needed to be opearated on (`session.client.db.collection`)
+      * For each operation, you must pass the session as a named parameter (`session=session`)
+  2.  Start a client session by calling the `start_session` method on a client (Use a context manager)
+  3. Execute the transaction by calling `with_transaction(callback)` on the session object
+  * Example 
+    ```
+    def callback(session):
+      some_coll = session.client.db.some_coll
+      some_coll.update_one({...}, {...}, session=session)
 
-# Unit 11: MongoDB Aggregation [TODO]
+    with client.start_session() as session:
+      session.with_transaction(callback)
+    ```
+
+# Unit 11: MongoDB Aggregation 
+* An aggregation is a collection and summary of data which is created through a pipeline with is a series of stages (built in method that operates on the data without modifying it)
+* The syntax is as follows:
+  ```
+  db.collection.aggregate([
+    {
+      $stage1: {
+        {expression1},
+        {expression2}
+      },
+      $stage2: {
+        {expression1},
+        {expression2}
+      }
+    }
+  ])
+  ```
+* **$match** stage filters for documents that match specified conditions
+  ```
+  {
+    $match: {
+      'field_name': 'value'
+    }
+  }
+  ```
+* **$group** stage groups documents by a group key
+  ```
+  {
+    $group: {
+      _id: <expression>, // Key, wrap in quotes with a $ TODO
+      <field>: { <accumulator> : <expression> }
+    }
+  }```
+* **$sort** sorts all the input documents and returns them to the pipeline in sorted order
+  * Use 1 to represent ascending order
+  * Use -1 to represent descending order
+  ```
+  {
+    $sort: {
+      'field_name': 1
+    }
+  }
+  ```
+* **$limit** returns a speciifed number of records
+  ```
+  {
+    $limit: 5
+  }
+  ```
+* **$project** specifies the fields of the output document
+  * 1 means a field should be included, 0 should be excluded
+  * Can also be used to assign a new value
+  * Example:
+    ```
+    {
+      $project: {
+        state: 1,
+        _id: 0,
+        population: "$pop", // TODO figure out quote and $ rules
+      }
+    }
+    ```
+* **$set** creates new fields or changes the values of existing fields
+  ```
+  {
+    $set: {
+      place: {
+        $concet
+      },
+      pop: 10000
+    }
+  }
+  ```
 
 # Unit 12: MongoDB Aggregation in Python [TODO]
 
@@ -194,3 +325,4 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 To access subdocuments, you must use the syntax "field.nestedfield" (Including the quotation marks) (Scroll to section on dot notation: MongoDB uses the dot notation to access the elements of an array and to access the fields of an embedded document.)
 What is the difference between `findAndModify()` and `updateOne()`
 Unit 8 Summary: Added a new field to a document by using the upsert option in updateOne()
+ID field is immutable and cannot be overwritten

@@ -1,6 +1,6 @@
 ---
 layout: NONE
-title: MongoDB Associate Developer Certification Study Guid
+title: MongoDB Associate Developer Certification Study Guide
 tags: [mongodb, python]
 comments: true
 ---
@@ -9,8 +9,28 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 
 # Unit 1: Intro to MongoDB [TODO]
 # Unit 2: Getting Started with MongoDB Atlas [TODO]
-# Unit 3: MongoDB and the Document Model [TODO]
+# Unit 3: MongoDB and the Document Model 
+* The values in a document can be of any data type (string, array, boolean, object, nulls, date, ObjectId, etc)
+* ```
+  # Syntax
+  {
+    "key": value,
+    "key": value,
+    ...
+  }
+
+  # Example
+  {
+    "_id": 1,
+    "name": "AC3 Phone",
+    "colors" : ["black", "silver"],
+    "price" : 200,
+    "available" : true
+  }
+  ```
+  * MongoDB has a flexible schema which means that documents in the same collection are not required to share a common structure of fields and value types (by default)
 # Unit 4: MongoDB Data Modeling Intro [TODO]
+
 # Unit 5: Connecting to a MongoDB Database [TODO]
 # Unit 6: Connecting to MongoDB in Python
 * Drivers are responsible for establishing secure connections to Mongo clusters and for running database operations on behalf of client applications
@@ -168,6 +188,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   ])
   ```
 * **$match** stage filters for documents that match specified conditions
+  * Should be placed early in a pipeline
   ```
   {
     $match: {
@@ -176,13 +197,15 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   }
   ```
 * **$group** stage groups documents by a group key
+  * The group key must be wrapped in quotations and preceded by a `$`
   ```
   {
     $group: {
       _id: <expression>, // Key, wrap in quotes with a $ TODO
       <field>: { <accumulator> : <expression> }
     }
-  }```
+  }
+  ```
 * **$sort** sorts all the input documents and returns them to the pipeline in sorted order
   * Use 1 to represent ascending order
   * Use -1 to represent descending order
@@ -202,6 +225,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 * **$project** specifies the fields of the output document
   * 1 means a field should be included, 0 should be excluded
   * Can also be used to assign a new value
+    * To add a new field by using *$project*, specify the field name and set its value to an expression like this: <field>: <expression>.
   * Example:
     ```
     {
@@ -217,17 +241,108 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   {
     $set: {
       place: {
-        $concet
+        $concat: ['$city', ',', '$state']
       },
       pop: 10000
     }
   }
   ```
+  * $set and $project can both be used to create new fields
+* **$count** Creates one document with the number of documents in that stage of the aggregation pipeline, assigned to the given field name
+  ```
+  {
+    $count: 'target_name' // Must not have a $
+  }
+  ```
+* **$out** lets you write all the documents in the current aggregation to a collection
+  * If a collection with the specified name already exists, it will be overwritten
+  ```
+  {
+    $out: 'collection-name'
+  }
+  ```
 
-# Unit 12: MongoDB Aggregation in Python [TODO]
+# Unit 12: MongoDB Aggregation in Python
+  ```
+  # Example: Select accounts with balances of less than $1000.
+  stage1 = {
+    "$match": {
+      "balance": {
+        "$lt": 1000
+      }
+    }
+  }
 
-# Unit 13: MongoDB Indexes [TODO]
+  # Example: Separate documents by account type and calculate the average balance for each account type.
+  stage2 = {
+    "$group": {
+      "_id": "$account_type",
+      "average_balance": {
+        "$avg": "$balance"
+      }
+    }
+  }
 
+  # Example: Organize documents in order from highest balance to lowest.
+  stage3 = {
+    "$sort": {
+      "balance": -1
+    }
+  }
+
+  # Example: Return only the account type & balance fields, plus a new field containing balance in Great British Pounds (GBP).
+  stage4 = {
+    "$project": {
+      "account_type": 1,
+      "balance": 1,
+      "balance_gbp": {
+        "$divide": ["$balance", 3.44]
+      },
+      "_id": 0
+    }
+  }
+
+
+  pipepine = [stage1, stage2, ...]
+  res = collection.aggregate(pipeline)
+  for doc in res:
+    print(doc)
+  ```
+
+
+# Unit 13: MongoDB Indexes 
+* Single-Field Indexes
+  * Index that supporst efficient querying against a single field
+  * A single-field index is also a multikey index of the value of the field is an array
+  * By default, all collections have a single-field index on `_id`
+  * Use `createIndex()` with an object parameter specifying the field and the sort order
+  * Syntax: `db.collection.createIndex({fieldName: 1})`
+  * You can also enforce uniqueness with a second parameter to createIndex of the form `{unique: true}`
+    * Will not create index if that field is not already unique in the collection
+    * For all future insertions, uniqueness will be enforced
+* Multi-Key Indexex
+  * If a single-field or compound-field index has an array field, then the index is a multi-key index
+  * There is a limit of 1 array field per index
+  * There is no special syntax for creating these, its just a matter of one of the field(s) in your index being an array type
+* Compound Indexes
+  * To create, in the first parameter of `createIndex()` specify 2 or more fields along with their sort orders
+  * The order of fields **does** matter! The [reccomended order](https://www.mongodb.com/docs/manual/tutorial/equality-sort-range-rule/) is as follows:
+    * **Equality**: Fields that match on a single field value in a query
+    * **Sort**: Fields that order the results of a query
+    * **Range**: Fields that don't match an exact value but can take on a range
+* Use `db.collection.getIndexes()` to see all indexes in a collection
+* Use `explain()` to check if an index is being used in a query
+  * Syntax: `db.collection.explain().find({...})`
+  * **IXSCAN**: Indicates that the query is using an index
+  * **COLLSCAN**: Indicating no index usage and therefore scanning the entire collection
+  * **FETCH**: Indicates documents are being read from the collection
+  * **SORT**: Indicates documents are being sorted in memory
+* Use `db.collection.deleteIndex()` to remove an index
+  * Either pass in the string representing the index name or an object representing the index
+* Use `db.collection.dropIndexes()` to delete all indexes from a collection
+  * Excludes the default index on the `_id` field
+  * You can also pass an array of string index names if you want to delete a subset of indexes
+  * You can use `hideIndex` to analyze behavior of removing an index without actually having to drop it
 # Unit 15: MongoDB Transactions
 
 * Issue: Two friends are at dinner and decide to split the bill. One person picks up the tab and the other pays them back on a payment app. For the second step, we withdraw money from one account and add money to the other. But we need both of these to happen.

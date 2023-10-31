@@ -28,7 +28,8 @@ After attending a MongoDB conference at work, I decided to persue one of their t
     "available" : true
   }
   ```
-  * MongoDB has a flexible schema which means that documents in the same collection are not required to share a common structure of fields and value types (by default)
+* MongoDB has a flexible schema which means that documents in the same collection are not required to share a common structure of fields and value types (by default)
+
 # Unit 4: MongoDB Data Modeling Intro [TODO]
 
 # Unit 5: Connecting to a MongoDB Database [TODO]
@@ -52,11 +53,18 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 * Use `db.collection.insertOne({..document data..})` to insert a single document into a collection
 * Use `db.collection.insertMany([{A},{B},..])` to insert multiple documents at once
 * Use `db.collection.find(query, projection, options)` to get a cursor to the documents matching the query criteria
+  * Use `db.collection.findOne(query, projection, options)` if you are only interested in one (i.e. the first) result
+    * This also returns a document, not a cursor
+  * All three of the parameters are optional, so `db.collection.find()` can be used instead of `db.collection.find({})`
   * How to match equality on the `_id` field: `db.zips.find({_id: ObjectId("sefsefse")})`
     * Make note of the ObjectId() call and that you can't use a string
   * **$in** operator lets you match the value of a field to one of multiple options in a given array
     * `db.zips.find({city: {$in: ['RALEIGH', 'CHARLOTTE']}})`
-    * `{ field: { $in: [<value1>, <value2>, ... <valueN> ] } }`
+    * `{ field: { $in: [<value1>, <value2>, ..., <valueN> ] } }`
+    * If field is an array, matches documents where the array contains at least one element that matches the right-hand side
+  * **$nin** operator lets you match the value of a field not being any of the given options
+    * `{ field: { $nin: [<value1>, <value2>, ..., <valueN> ] } }`
+    * If the field is an array, matches documents whose array contains none of the specified items
   * **$gt** lets you match documents with a field greater than the given value
     * `{ field: { $gt: <value> } }`
   * **$lt** lets you match documents with a field less than the given value
@@ -108,9 +116,11 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 * `database.collection.updateMany(filter, update, objects)` used to update multiple documents
 * `database.collection.deleteOne(filter, options)` and `database.collection.deleteMany(filter, options)` can be used to delete documents
   * Both of these return a document that contains properties `acknowledged` (i.e. was it successful) and `deletedCount` (how many documents were removed)
+* `database.collection.findOneAndDelete(filter, options)` deletes a single document matching the criteria and returns it
 
 # Unit 9: MongoDB CRUD Operations: Modifying Query Results
-* `cursor.sort()`/`db.collection.find(<query>).sort(<sort>)`lets you return query results in a specific order
+* `cursor.sort()` lets you return query results in a specific order
+  * Full Syntax: `db.collection.find(<query>).sort(<sort>)`
   * The parameter is an object specifying the fields to sort and the order (1 is ascending, -1 is descending)
   * To ensure consistent results, include a field in `<sort>` that contains unique values of the sort. An easy way to do this is to include the `_id` field
 * `cursor.limit(<number>)` lets you specify a maximum number of documents to return
@@ -121,6 +131,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * By default, the `_id` field is included, but it can be supressed in any projection by settings its value to 0 (can't mix 1's and 0's in any other way)
 * `database.collection.countDocuments(<query>, <options>)` to count the number of documents matching the query
   * An empty object parameter will get you the number of documents in the collection
+* `cursor.count()` will also get you the number of documents in the result set
 
 # Unit 10: MongoDB CRUD Operations in Python 
 * PyMongo lets you represent BSON documents as Python dictionaries
@@ -161,6 +172,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   2.  Start a client session by calling the `start_session` method on a client (Use a context manager)
   3. Execute the transaction by calling `with_transaction(callback)` on the session object
   * Example 
+
     ```
     def callback(session):
       some_coll = session.client.db.some_coll
@@ -260,6 +272,12 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   {
     $out: 'collection-name'
   }
+  {
+    $out: {
+      'db': "<db>",
+      'coll': "<coll>"
+    }
+  }
   ```
 
 # Unit 12: MongoDB Aggregation in Python
@@ -330,6 +348,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
     * **Equality**: Fields that match on a single field value in a query
     * **Sort**: Fields that order the results of a query
     * **Range**: Fields that don't match an exact value but can take on a range
+    * The two indexes are equivalent (1) `{a: 1, b: 1}` and (2) `{a: -1, b: -1}`
 * Use `db.collection.getIndexes()` to see all indexes in a collection
 * Use `explain()` to check if an index is being used in a query
   * Syntax: `db.collection.explain().find({...})`
@@ -343,8 +362,8 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * Excludes the default index on the `_id` field
   * You can also pass an array of string index names if you want to delete a subset of indexes
   * You can use `hideIndex` to analyze behavior of removing an index without actually having to drop it
-# Unit 15: MongoDB Transactions
 
+# Unit 15: MongoDB Transactions
 * Issue: Two friends are at dinner and decide to split the bill. One person picks up the tab and the other pays them back on a payment app. For the second step, we withdraw money from one account and add money to the other. But we need both of these to happen.
 * Any time DB operations transfer value from one record to another, we need these operations to complete fully
 * **ACID Transactions**: Group of database operations that must happen together or not at all, ensuring database consistency
@@ -437,7 +456,10 @@ After attending a MongoDB conference at work, I decided to persue one of their t
    * Sample scenarios will be similar to what we've already seen, but language dependent
 
 
-To access subdocuments, you must use the syntax "field.nestedfield" (Including the quotation marks) (Scroll to section on dot notation: MongoDB uses the dot notation to access the elements of an array and to access the fields of an embedded document.)
-What is the difference between `findAndModify()` and `updateOne()`
-Unit 8 Summary: Added a new field to a document by using the upsert option in updateOne()
-ID field is immutable and cannot be overwritten
+* To access subdocuments, you must use the syntax "field.nestedfield" (Including the quotation marks) (Scroll to section on dot notation: MongoDB uses the dot notation to access the elements of an array and to access the fields of an embedded document.)
+* What is the difference between `findAndModify()` and `updateOne()`
+* Unit 8 Summary: Added a new field to a document by using the upsert option in updateOne()
+* ID field is immutable and cannot be overwritten
+* Use `cursor.toArray()` to get all documents returned by the cursor
+* Valid BSON Types: double, string, object, array, objectId, bool, date, null, int, long, decimal
+* Boolean values should be lowercase

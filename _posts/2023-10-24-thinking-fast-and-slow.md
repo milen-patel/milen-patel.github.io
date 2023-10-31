@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Thinking, Fast and Slow
-subtitle: My thoughts on Daniel Kahneman's *Thinking, Fast and Slow*
+subtitle: My thoughts on Daniel Kahneman's Thinking, Fast and Slow
 tags: [reading]
 ---
 Last Spring, I went on a cruise with five of my college roommates, and as we departed, I remembered that I was about to lose my cell service for the next week. I hadn’t brought a book with me, so I quickly tried to find some interesting articles to download on my phone that I could read until our boat docked. Amongst the random collection of saved articles was a 20-page report on the infamous Stanford Prison Experiment. I was well aware of the experiment but had never read deeper into the subject beyond the surface-level results that seemingly everybody knows about. Surprisingly, in those 20 pages, I found such remarkable insights that lingered in my mind well past the end of the cruise and into the remainder of the school year. With a newfound interest in psychological studies, I found myself searching online for a book that would overview other experiments whose results were equally as profound as those of the Stanford Prison Experiment. Although I couldn’t find a book that was exactly what I was searching for, Daniel Kahneman’s *Thinking, Fast and Slow* caught my attention as I repeatedly came across it during many of my searches. With the interest in human behavior still looming, I decided to purchase this book from our Student Store in hopes that it would subdue my newfound fascination. 

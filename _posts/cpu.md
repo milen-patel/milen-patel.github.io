@@ -1,3 +1,9 @@
+---
+layout: post
+title: CPU From Scratch
+subtitle: Here's how a computer works down to the flow of electricity
+tags: [reading]
+---
 # Chapter XX - Introduction and Prerequisites
 
 # Chapter XX - Binary

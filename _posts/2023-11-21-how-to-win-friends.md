@@ -4,6 +4,7 @@ title: How to Win Friends & Influence People
 subtitle: My thoughts on Dale Carnegie's 'How to Win Friends & Influence People'
 tags: [reading]
 ---
+
 A few months ago, I ended my review of *The Defining Decade* by naming a few friends who I thought would enjoy the book as much as I did. On that list was my friend Savitra who immediately took me up on my offer to buy the book for him. Before I could ask for his address, though, I was confused by a text from him asking for my address. 
 
 Two weeks later, I came home to find a copy of Dale Carnegie’s *How to Win Friends and Influence People* outside of my apartment door. Although I was excited to receive this as a recommendation, the book was far from unfamiliar. Excerpts, quotes, and even entire passages from this book have appeared sporadically on my Twitter feed over the past few months. The frequency at which I saw this book quoted online only fueled my excitement to start reading.
@@ -17,4 +18,5 @@ I mentioned that many of the key ideas weren’t foreign to me, yet since finish
 Whereas most of the nonfiction books I have read so far have been written in the past fifty or so years, *How to Win Friends and Influence People* dates back almost 100 years. I imagine how bizarre it would be if someone were to talk today in the same manner that the book was written. Random phrases or diction choices have changed over the past generations, but this has very little impact on the readability of the book. In fact, I found a different value in seeing how older writing fares with more modern books.
 
 Savitra, I’m equally thankful that you took the time to read my review of *The Defining Decade* as I am that you shipped this book to my doorstep. It’s one thing to have a friend recommend a book, but for them to gift it without you asking is even more meaningful. Your kind gesture changed my attitude going into the book, and I’m glad to say that your prediction of me enjoying the book turned out to be nothing short of true. I’m looking forward to visiting you next year and hope our paths can cross before then. 
+
 Rating: 5/5

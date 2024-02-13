@@ -9,28 +9,53 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 
 # Unit 1: Intro to MongoDB [TODO]
 # Unit 2: Getting Started with MongoDB Atlas [TODO]
-# Unit 3: MongoDB and the Document Model 
-* The values in a document can be of any data type (string, array, boolean, object, nulls, date, ObjectId, etc)
-* ```
-  # Syntax
-  {
-    "key": value,
-    "key": value,
-    ...
-  }
+# Unit 3: MongoDB and the Document Model [DONE]
+* A **document** is the basic unit of data in MongoDB
+  * The values in a document can be of any data type (string, array, boolean, object, nulls, date, ObjectId, etc)
+  * ```
+    # Syntax
+    {
+      "key": value,
+      "key": value,
+      ...
+    }
 
-  # Example
-  {
-    "_id": 1,
-    "name": "AC3 Phone",
-    "colors" : ["black", "silver"],
-    "price" : 200,
-    "available" : true
-  }
-  ```
+    # Example
+    {
+      "_id": 1,
+      "name": "AC3 Phone",
+      "colors" : ["black", "silver"],
+      "price" : 200,
+      "available" : true
+    }
+    ```
+* A **collection** is a grouping of documents
+* A **database** is a container for collections
 * MongoDB has a flexible schema which means that documents in the same collection are not required to share a common structure of fields and value types (by default)
+  * There is optional schema validation which can enforce constraints on the structure of documents in a collection
+* The MongoDB Database is a core element of **MongoDB Atlas** which offers additional features such as text-search, analytics, and data visualization
+* While documents are displayed in JSON, they are stored internally as BSON
+  * BSON adds support for data types not available in JSON (Dates, ObjectID, etc.)
+* ObjectID is a special data type to create to unique identifiers
+  * Every document requires an `_id` field which serves as a primary key
+  * If you don't specify an `_id` field when creating a document, MongoDB will automatically generate and insert one
 
-# Unit 4: MongoDB Data Modeling Intro [TODO]
+
+# Unit 4: MongoDB Data Modeling Intro [DONE]
+* Data Modeling is the process of defining the relationships that exist among different entities in your data and understanding how data is stored
+* There are two ways to model relationships: **embedding** and **referencing**
+  * Embedding is when we take related data and insert it into our document
+    * Used for one-to-many or many-to-many
+    * Avoids joins which results in faster read operations
+    * This can create large documents over time (called unbounded documents)
+  * Referencing is when we refer to documents in another collection in our document
+    * Reference with respective ObjectID's
+    * No duplication and smaller documents but needs to join multiple documents together
+* Data that is accessed together should be stored together
+* **One-to-One** a data entity in one set is connected to exactly one data entity in another set
+* **One-to-Many** a data entity in one set is connected to any number of data entities in another set
+  * Nested arrays could model this relationship
+* **Many-to-Many** a relationship where any number of data entities in one set are connected to any number of data entities in another set
 
 # Unit 5: Connecting to a MongoDB Database [TODO]
 # Unit 6: Connecting to MongoDB in Python
@@ -48,9 +73,10 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 * Must whitelist your IP address or you'll get a `ServerSelectionTimeoutError`
 * Incorrect credential will yield a `OperationFailure: Authentication Failed`
 
-# Unit 7: MongoDB CRUD Opeartions: Insert and Find Documents
+# Unit 7: MongoDB CRUD Opeartions: Insert and Find Documents [DONE]
 
 * Use `db.collection.insertOne({..document data..})` to insert a single document into a collection
+  * If collection does not already exist, mongo will create it for you
 * Use `db.collection.insertMany([{A},{B},..])` to insert multiple documents at once
 * Use `db.collection.find(query, projection, options)` to get a cursor to the documents matching the query criteria
   * Use `db.collection.findOne(query, projection, options)` if you are only interested in one (i.e. the first) result
@@ -89,12 +115,15 @@ After attending a MongoDB conference at work, I decided to persue one of their t
         ]
       })
       ```
+  * To query on subdocuments, wrap the name in quotations: "a.b"
+    * For example `{customer.age: {$gt: 50}}` finds all the documents where the customer age field is greater than 50
 
-# Unit 8: MongoDB CRUD Operations: Replace and Delete Documents
+# Unit 8: MongoDB CRUD Operations: Replace and Delete Documents [DONE]
 * `database.collection.replaceOne(filter, replacement, options)` lets you replace a document in MongoDB
   * *Filter*: A query that matches the document to replace
   * *Replacement*: The new document to replace the old one with
   * *Options*: An object specifying parameters for the update
+  * Keeps the ID the same
 * `database.collection.updateOne(filter, update, options)` can be used to update a single document in the collection
   * **upsert** option lets you createa new document if none match the filtered criteria
   * **$set** lets you replace the value of a field with a specified value
@@ -118,7 +147,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * Both of these return a document that contains properties `acknowledged` (i.e. was it successful) and `deletedCount` (how many documents were removed)
 * `database.collection.findOneAndDelete(filter, options)` deletes a single document matching the criteria and returns it
 
-# Unit 9: MongoDB CRUD Operations: Modifying Query Results
+# Unit 9: MongoDB CRUD Operations: Modifying Query Results [DONE]
 * `cursor.sort()` lets you return query results in a specific order
   * Full Syntax: `db.collection.find(<query>).sort(<sort>)`
   * The parameter is an object specifying the fields to sort and the order (1 is ascending, -1 is descending)

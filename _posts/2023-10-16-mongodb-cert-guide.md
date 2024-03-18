@@ -486,7 +486,6 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 
 
 * To access subdocuments, you must use the syntax "field.nestedfield" (Including the quotation marks) (Scroll to section on dot notation: MongoDB uses the dot notation to access the elements of an array and to access the fields of an embedded document.)
-* What is the difference between `findAndModify()` and `updateOne()`
 * Unit 8 Summary: Added a new field to a document by using the upsert option in updateOne()
 * ID field is immutable and cannot be overwritten
 * Use `cursor.toArray()` to get all documents returned by the cursor

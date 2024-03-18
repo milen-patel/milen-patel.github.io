@@ -19,4 +19,4 @@ If you purchase this book, in many respects you are walking away with two novels
 
 Ella, it’s highly unlikely that I would have come across this book without your recommendation, so thank you for such an eye-opening read. I don’t normally find the time to finish books in one or two sittings anymore, but this was so engaging from the start that I found myself carving out the time to get this done within a weekend. I’m looking forward to swapping this out for another book you found equally as valuable.
 
-**Rating: ** 5/5
+Rating: 5/5

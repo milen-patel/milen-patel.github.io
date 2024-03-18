@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Challenge Culture
-subtitle: My thoughts on Nigel Travis' Challenge Culture
+subtitle: My thoughts on Nigel Travis' 'Challenge Culture'
 tags: [reading]
 comments: true
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Steve Jobs
-subtitle: My thoughts on Walter Isaacson's Steve Jobs
+subtitle: My thoughts on Walter Isaacson's 'Steve Jobs'
 tags: [reading]
 ---
 Last May, my friend Aditya gave me his copy of Walter Isaacson's biography of Steve Jobs. As much as I wanted to start reading the book then and there, it was the end of the school year and finals were occupying most of my waking hours. Eventually, once the semester wrapped up, I found myself paying more attention to the 600-page book that had been sitting on my desk during the weeks prior. 

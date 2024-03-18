@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Defining Decade
-subtitle: My thoughts on Meg Jay's The Defining Decade
+subtitle: My thoughts on Meg Jay's 'The Defining Decade'
 tags: [reading]
 ---
 Occasionally (but infrequently), I’ll see the back of a book and be immediately hooked without having read a single page. *The Defining Decade* was one of those rare finds that caught my eye the moment I saw it. When it comes to reading, I generally find it difficult to set aside time which leads to most of my sessions being sporadic bursts throughout the week combined with my morning subway commutes. *The Defining Decade*, however, was an exception - I finished the first half of the book the day it came in the mail and had the rest completed by the end of that week. 

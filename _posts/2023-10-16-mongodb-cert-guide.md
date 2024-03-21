@@ -1,5 +1,5 @@
 ---
-layout: NONE
+layout: post
 title: MongoDB Associate Developer Certification Study Guide
 tags: [mongodb, python]
 comments: true
@@ -7,9 +7,7 @@ comments: true
 # Introduction
 After attending a MongoDB conference at work, I decided to persue one of their two primary certifications: MongoDB Associate Developer. Unlike the AWS certifications and other popular exams, there wasn't as much information about the Mongo certifications online. I decide to create this as a study guide for other prospective exam-takers. The certification is language specific, and while I chose python, many of the required units are language agnostic which means this study guide should be useful for anyone regardless of the language you choose. That being said, for the sections that are langauge dependent, my notes will be in python.
 
-# Unit 1: Intro to MongoDB [TODO]
-# Unit 2: Getting Started with MongoDB Atlas [TODO]
-# Unit 3: MongoDB and the Document Model [DONE]
+# Unit 3: MongoDB and the Document Model
 * A **document** is the basic unit of data in MongoDB
   * The values in a document can be of any data type (string, array, boolean, object, nulls, date, ObjectId, etc)
   * ```
@@ -41,7 +39,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * If you don't specify an `_id` field when creating a document, MongoDB will automatically generate and insert one
 
 
-# Unit 4: MongoDB Data Modeling Intro [DONE]
+# Unit 4: MongoDB Data Modeling Intro 
 * Data Modeling is the process of defining the relationships that exist among different entities in your data and understanding how data is stored
 * There are two ways to model relationships: **embedding** and **referencing**
   * Embedding is when we take related data and insert it into our document
@@ -57,7 +55,6 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * Nested arrays could model this relationship
 * **Many-to-Many** a relationship where any number of data entities in one set are connected to any number of data entities in another set
 
-# Unit 5: Connecting to a MongoDB Database [TODO]
 # Unit 6: Connecting to MongoDB in Python
 * Drivers are responsible for establishing secure connections to Mongo clusters and for running database operations on behalf of client applications
 * An application should use a single MongoClient instance for all database requests
@@ -73,7 +70,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
 * Must whitelist your IP address or you'll get a `ServerSelectionTimeoutError`
 * Incorrect credential will yield a `OperationFailure: Authentication Failed`
 
-# Unit 7: MongoDB CRUD Opeartions: Insert and Find Documents [DONE]
+# Unit 7: MongoDB CRUD Opeartions: Insert and Find Documents
 
 * Use `db.collection.insertOne({..document data..})` to insert a single document into a collection
   * If collection does not already exist, mongo will create it for you
@@ -118,7 +115,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * To query on subdocuments, wrap the name in quotations: "a.b"
     * For example `{customer.age: {$gt: 50}}` finds all the documents where the customer age field is greater than 50
 
-# Unit 8: MongoDB CRUD Operations: Replace and Delete Documents [DONE]
+# Unit 8: MongoDB CRUD Operations: Replace and Delete Documents 
 * `database.collection.replaceOne(filter, replacement, options)` lets you replace a document in MongoDB
   * *Filter*: A query that matches the document to replace
   * *Replacement*: The new document to replace the old one with
@@ -147,7 +144,7 @@ After attending a MongoDB conference at work, I decided to persue one of their t
   * Both of these return a document that contains properties `acknowledged` (i.e. was it successful) and `deletedCount` (how many documents were removed)
 * `database.collection.findOneAndDelete(filter, options)` deletes a single document matching the criteria and returns it
 
-# Unit 9: MongoDB CRUD Operations: Modifying Query Results [DONE]
+# Unit 9: MongoDB CRUD Operations: Modifying Query Results 
 * `cursor.sort()` lets you return query results in a specific order
   * Full Syntax: `db.collection.find(<query>).sort(<sort>)`
   * The parameter is an object specifying the fields to sort and the order (1 is ascending, -1 is descending)
@@ -483,11 +480,3 @@ After attending a MongoDB conference at work, I decided to persue one of their t
    * Understand components of URI string
    * Know CRUD Syntax for Driver
    * Sample scenarios will be similar to what we've already seen, but language dependent
-
-
-* To access subdocuments, you must use the syntax "field.nestedfield" (Including the quotation marks) (Scroll to section on dot notation: MongoDB uses the dot notation to access the elements of an array and to access the fields of an embedded document.)
-* Unit 8 Summary: Added a new field to a document by using the upsert option in updateOne()
-* ID field is immutable and cannot be overwritten
-* Use `cursor.toArray()` to get all documents returned by the cursor
-* Valid BSON Types: double, string, object, array, objectId, bool, date, null, int, long, decimal
-* Boolean values should be lowercase

@@ -22,4 +22,4 @@ This book certainly wasn’t boring; I’d even go as far as to argue that Morse
 
 Peter, it would be an understatement to say we had a lot of characters on our Europe trip, so it already excited me to catch up with you after parting ways. I apologize for the delay in sending you the link to this review; even if my enthusiasm didn’t perfectly parallel yours when reading this, I had a smile painted across my face knowing that you went through the effort of getting this into my hands. 
 
-Rating: 3 / 5 
+Rating: 3/5 

@@ -5,7 +5,7 @@ subtitle: My thoughts on Seth Harp's The Fort Bragg Cartel
 tags: [reading]
 ---
 
-Let's just say that 2024 was not my year for reading. It's not like the concept had escaped my mind; the row of books on top of my dresser was actually a constant reminder. But, 2024 was one of those work and travel heavy years, so I ended up deprioritizing reading to free up time, and, the total of two books I read is clear enough evidence. 
+Let's just say that 2025 was not my year for reading. It's not like the concept had escaped my mind; the row of books on top of my dresser was actually a constant reminder. But, 2025 was one of those work and travel heavy years, so I ended up deprioritizing reading to free up time, and, the total of two books I read is clear enough evidence. 
 
 When my friend Aditya sent me a book recommendation in November, I knew that was my signal to break the dry streak. My schedule had already started to ease up a bit and the thought of picking up a book was making its way into my todo list. But seeing the conviction Aditya had in Harp's *The Fort Bragg Cartel*, I figured I had no excuse but to buy it now. So, while home for the holidays, I drove to my hometown Barnes and Noble for the first time in quite a while and finally put thoughts into action. 
 
